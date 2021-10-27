@@ -1,7 +1,17 @@
 import { InlineProgramArgs, LocalWorkspace } from "@pulumi/pulumi/automation";
+import { Provider } from "@pulumi/kubernetes";
 import { Argo } from "./src/argo";
 
 import process = require('process');
+
+// TODO: kubernetes.provider をきちんとするか考える
+// https://www.pulumi.com/registry/packages/kubernetes/api-docs/provider/
+
+// アプリケーションをデプロイする kubernetes クラスタを指定します
+//
+// - ""    : 実行している ternimanl の context が使われます
+// - TODO : "aks" : aks クラスタを利用します
+const kubernetesProvider = process.env.KUBERNETES_PROVIDER || ""
 
 const args = process.argv.slice(2);
 let destroy = false;
@@ -10,9 +20,15 @@ if (args.length > 0 && args[0]) {
 }
 
 const run = async () => {
-    // This is our pulumi program in "inline function" form
+    var provider: Provider | undefined = undefined
+
+    if (kubernetesProvider == "aks") {
+        console.info("Kubernetes provider:", kubernetesProvider)
+    }
+
     const pulumiProgram = async () => {
         const argo = new Argo("Argo", {
+            provider: provider,
             namespace: "pulumi-argo"
         })
 
@@ -32,12 +48,6 @@ const run = async () => {
     const stack = await LocalWorkspace.createOrSelectStack(args);
 
     console.info("successfully initialized stack");
-    //console.info("installing plugins...");
-    //await stack.workspace.installPlugin("aws", "v4.0.0");
-    //console.info("plugins installed");
-    //console.info("setting up config");
-    //await stack.setConfig("aws:region", { value: "us-west-2" });
-    //console.info("config set");
     console.info("refreshing stack...");
     await stack.refresh({ onOutput: console.info });
     console.info("refresh complete");
@@ -52,7 +62,7 @@ const run = async () => {
     console.info("updating stack...");
     const upRes = await stack.up({ onOutput: console.info });
     console.log(`update summary: \n${JSON.stringify(upRes.summary.resourceChanges, null, 4)}`);
-    console.log(`website url: ${upRes.outputs.websiteUrl.value}`);
+    //console.log(`website url: ${upRes.outputs.websiteUrl.value}`);
 };
 
 run().catch(err => console.log(err));

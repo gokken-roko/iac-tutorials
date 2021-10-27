@@ -2,7 +2,6 @@ import * as pulumi from "@pulumi/pulumi";
 import * as k8s from "@pulumi/kubernetes";
 
 interface argoProps {
-  provider?: k8s.Provider;
   namespace?: string;
 }
 
@@ -25,25 +24,21 @@ export class Argo extends pulumi.ComponentResource {
       opts
     );
 
-    const argocd = new k8s.helm.v3.Chart(
-      "argo-cd",
-      {
-        chart: "argo-cd",
-        version: "3.26.2",
-        namespace: argoNamaspace.metadata.name,
-        fetchOpts: {
-            repo: "https://argoproj.github.io/argo-helm"
-        },
-        values: {
-          server: {
-            config: {
-              url: "http://localhost:8080"
-            },
+    const argocd = new k8s.helm.v3.Chart("argo-cd", {
+      chart: "argo-cd",
+      version: "3.26.2",
+      namespace: argoNamaspace.metadata.name,
+      fetchOpts: {
+          repo: "https://argoproj.github.io/argo-helm"
+      },
+      values: {
+        server: {
+          config: {
+            url: "http://localhost:8080"
           },
         },
       },
-      { provider: props.provider }
-    );
+    });
 
     this.helmUrn = argocd.urn;
     this.registerOutputs();
