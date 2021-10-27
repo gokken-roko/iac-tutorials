@@ -10,5 +10,9 @@
   "scripts": {
     "build": "tsc",
     "start": "tsc && node ./bin/index.js"
+  },
+  "dependencies": {
+    "@pulumi/kubernetes": "^3.8.2",
+    "@pulumi/pulumi": "^3.16.0"
   }
 }
