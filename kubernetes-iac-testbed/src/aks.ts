@@ -62,7 +62,6 @@ export class Aks extends pulumi.ComponentResource {
       },
       nodeResourceGroup: "node-resource-group",
       servicePrincipalProfile: {
-        // https://portal.azure.com/#blade/Microsoft_AAD_RegisteredApps/ApplicationMenuBlade/Overview/appId/587daa33-30d3-41e8-8360-b0c865847f43/objectId/1344cdab-cd09-4443-87b3-f8b4f47e41ef/isMSAApp//defaultBlade/Overview/appSignInAudience/AzureADMyOrg/servicePrincipalCreated/true
         clientId: props.clientID,
         secret: props.clientSecret,
       },
