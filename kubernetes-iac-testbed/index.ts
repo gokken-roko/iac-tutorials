@@ -1,8 +1,10 @@
 import { InlineProgramArgs, LocalWorkspace } from "@pulumi/pulumi/automation";
 import { Provider } from "@pulumi/kubernetes";
+import { Aks } from "./src/aks";
 import { Argo } from "./src/argo";
 
 import process = require('process');
+import {Output} from "@pulumi/pulumi/output";
 
 // TODO: kubernetes.provider をきちんとするか考える
 // https://www.pulumi.com/registry/packages/kubernetes/api-docs/provider/
@@ -10,7 +12,7 @@ import process = require('process');
 // アプリケーションをデプロイする kubernetes クラスタを指定します
 //
 // - ""    : 実行している ternimanl の context が使われます
-// - TODO : "aks" : aks クラスタを利用します
+// - "aks" : aks クラスタを利用します
 const kubernetesProvider = process.env.KUBERNETES_PROVIDER || ""
 
 const args = process.argv.slice(2);
@@ -21,19 +23,36 @@ if (args.length > 0 && args[0]) {
 
 const run = async () => {
     var provider: Provider | undefined = undefined
-
-    if (kubernetesProvider == "aks") {
-        console.info("Kubernetes provider:", kubernetesProvider)
-    }
+    var kubeconfig: Output<string> | undefined = undefined
 
     const pulumiProgram = async () => {
+
+        if (kubernetesProvider === "aks") {
+            console.info("Kubernetes provider:", kubernetesProvider)
+
+            // https://github.com/pulumi/examples/blob/master/azure-ts-aks-helm/config.ts
+            const aks = new Aks("aks", {
+              k8sVersion: "1.20.9",
+              clientID: process.env.AZURE_CLIENT_ID || "",
+              clientSecret: process.env.AZURE_CLIENT_SECRET || "",
+              sshPublicKey: process.env.SSH_PUBLIC_KEY || "",
+              adminUserName: "azureuser",
+              nodeCount: 2,
+              nodeSize: "Standard_B2s",
+            })
+            provider = aks.provider
+            kubeconfig = aks.kubeconfig
+        }
+
         const argo = new Argo("Argo", {
-            provider: provider,
             namespace: "pulumi-argo"
+        },{
+            provider: provider
         })
 
         return {
             argoUrl: argo.helmUrn,
+            kubeconfig: kubeconfig
         }
     };
 
@@ -46,6 +65,11 @@ const run = async () => {
 
     // create (or select if one already exists) a stack that uses our inline program
     const stack = await LocalWorkspace.createOrSelectStack(args);
+
+    // For Azure
+    // TODO: Read from config or environment variable...
+    await stack.workspace.installPlugin("azure-native", "v1.42.0");
+    await stack.setConfig("azure-native:location", { value: "westus" });
 
     console.info("successfully initialized stack");
     console.info("refreshing stack...");

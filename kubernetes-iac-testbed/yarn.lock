@@ -67,6 +67,13 @@
   resolved "https://registry.yarnpkg.com/@protobufjs/utf8/-/utf8-1.1.0.tgz#a777360b5b39a1a2e5106f8e858f2fd2d060c570"
   integrity sha1-p3c2C1s5oaLlEG+OhY8v0tBgxXA=
 
+"@pulumi/azure-native@^1.42.0":
+  version "1.42.0"
+  resolved "https://registry.yarnpkg.com/@pulumi/azure-native/-/azure-native-1.42.0.tgz#c3a0d85c7b5534ac24fb462e82a7c84d18b37580"
+  integrity sha512-8FdfemhABPohXo+l2VCSSwDETJ4xMWwlJS4mEwHrWFtgoK/XDvhC4Zcx9KLJe8fUwJ2byuXPJvVw88cmrI3Uxg==
+  dependencies:
+    "@pulumi/pulumi" "^3.0.0"
+
 "@pulumi/kubernetes@^3.8.2":
   version "3.8.2"
   resolved "https://registry.yarnpkg.com/@pulumi/kubernetes/-/kubernetes-3.8.2.tgz#3d10843b4bcb6e44c1564aac89dc11b4cfae172b"

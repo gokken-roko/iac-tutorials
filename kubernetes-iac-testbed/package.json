@@ -12,6 +12,7 @@
     "start": "tsc && node ./bin/index.js"
   },
   "dependencies": {
+    "@pulumi/azure-native": "^1.42.0",
     "@pulumi/kubernetes": "^3.8.2",
     "@pulumi/pulumi": "^3.16.0"
   }

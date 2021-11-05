@@ -2,7 +2,6 @@ import * as pulumi from "@pulumi/pulumi";
 import * as k8s from "@pulumi/kubernetes";
 
 interface argoProps {
-  provider?: k8s.Provider;
   namespace?: string;
 }
 
@@ -42,7 +41,7 @@ export class Argo extends pulumi.ComponentResource {
           },
         },
       },
-      { provider: props.provider }
+      opts
     );
 
     this.helmUrn = argocd.urn;
