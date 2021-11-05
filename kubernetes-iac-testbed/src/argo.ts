@@ -31,12 +31,12 @@ export class Argo extends pulumi.ComponentResource {
         version: "3.26.2",
         namespace: argoNamaspace.metadata.name,
         fetchOpts: {
-            repo: "https://argoproj.github.io/argo-helm"
+          repo: "https://argoproj.github.io/argo-helm",
         },
         values: {
           server: {
             config: {
-              url: "http://localhost:8080"
+              url: "http://localhost:8080",
             },
           },
         },
