@@ -21,3 +21,14 @@ jobs:
       - uses: actions/setup-node@v2
         with:
           node-version-file: ${{ matrix.dir }}/.nvmrc
+      - name: Setup pulumi
+        uses: pulumi/actions@v3
+        with:
+          command: preview
+          stack-name: dev
+        env:
+          #PULUMI_ACCESS_TOKEN: ${{ secrets.PULUMI_ACCESS_TOKEN }}
+          PULUMI_CONFIG_PASSPHRASE: "password"
+      - name: Run yarn start
+        run: yarn start
+        working-directory: ${{ matrix.dir }}
