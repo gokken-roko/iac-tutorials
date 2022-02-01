@@ -21,8 +21,9 @@ jobs:
       - uses: actions/setup-node@v2
         with:
           node-version-file: ${{ matrix.dir }}/.nvmrc
-      - name: Install Latest Pulumi CLI
-        uses: pulumi/action-install-pulumi-cli@v2
+      # https://github.com/pulumi/setup-pulumi
+      - name: Install pulumi CLI
+        uses: pulumi/setup-pulumi@v2
         with:
           pulumi-version: 3.23.2
       - name: Setup pulumi cli
