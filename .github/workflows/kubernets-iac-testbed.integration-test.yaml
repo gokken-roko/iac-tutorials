@@ -1,0 +1,37 @@
+name: kubernetes-iac-testbed | integration-test
+
+on:
+  # TODO: remove
+  pull_request:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  integration-test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix: { dir: ["./kubernetes-iac-testbed"] }
+    steps:
+      - uses: actions/checkout@v2
+      # https://github.com/helm/kind-action
+      - name: Create k8s Kind Cluster
+        uses: helm/kind-action@v1.2.0
+      - uses: actions/setup-node@v2
+        with:
+          node-version-file: ${{ matrix.dir }}/.nvmrc
+      # https://github.com/pulumi/setup-pulumi
+      - name: Install pulumi CLI
+        uses: pulumi/setup-pulumi@v2
+        with:
+          pulumi-version: 3.23.2
+      - name: Setup pulumi cli
+        run: |
+          pulumi login --local
+      - name: Run yarn start
+        run: |
+          yarn
+          export PULUMI_CONFIG_PASSPHRASE=password
+          yarn start
+        working-directory: ${{ matrix.dir }}
