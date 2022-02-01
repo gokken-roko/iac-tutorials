@@ -24,6 +24,7 @@ jobs:
       - name: Setup pulumi
         uses: pulumi/actions@v3
         with:
+          work-dir: ${{ matrix.dir }}
           command: preview
           stack-name: dev
           # Use local File System
