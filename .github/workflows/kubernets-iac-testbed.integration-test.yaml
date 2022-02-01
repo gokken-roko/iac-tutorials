@@ -21,19 +21,14 @@ jobs:
       - uses: actions/setup-node@v2
         with:
           node-version-file: ${{ matrix.dir }}/.nvmrc
-      - name: Setup pulumi
-        uses: pulumi/actions@v3
+      - name: Install Latest Pulumi CLI
+        uses: pulumi/action-install-pulumi-cli@v2
         with:
-          work-dir: ${{ matrix.dir }}
-          command: preview
-          stack-name: dev
-          # Use local File System
-          # https://github.com/pulumi/actions#pulumi---nodejs-runtime--local-file-system-self-managed-backend
-          cloud-url: file://~
-          upsert: true
-        env:
-          #PULUMI_ACCESS_TOKEN: ${{ secrets.PULUMI_ACCESS_TOKEN }}
-          PULUMI_CONFIG_PASSPHRASE: "password"
+          pulumi-version: 3.23.2
+      - name: Setup pulumi cli
+        run: export PULUMI_CONFIG_PASSPHRASE=password
       - name: Run yarn start
-        run: yarn start
+        run: |
+          yarn
+          yarn start
         working-directory: ${{ matrix.dir }}
