@@ -18,7 +18,7 @@ jobs:
         with:
           node-version-file: ${{ matrix.dir }}/.nvmrc
       - name: Setup yarn
-        Run: yarn
+        run: yarn
         working-directory: ${{ matrix.dir }}
       - name: Run yarn format
         run: |
