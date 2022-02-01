@@ -29,6 +29,7 @@ jobs:
           # Use local File System
           # https://github.com/pulumi/actions#pulumi---nodejs-runtime--local-file-system-self-managed-backend
           cloud-url: file://~
+          upsert: true
         env:
           #PULUMI_ACCESS_TOKEN: ${{ secrets.PULUMI_ACCESS_TOKEN }}
           PULUMI_CONFIG_PASSPHRASE: "password"
