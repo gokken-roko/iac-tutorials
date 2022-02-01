@@ -20,5 +20,4 @@ jobs:
         uses: helm/kind-action@v1.2.0
       - uses: actions/setup-node@v2
         with:
-          node-version-file: .nvmrc
-        working-directory: ${{ matrix.dir }}
+          node-version-file: ${{ matrix.dir }}/.nvmrc
