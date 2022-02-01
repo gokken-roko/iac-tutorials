@@ -11,8 +11,14 @@ on:
 jobs:
   integration-test:
     runs-on: ubuntu-latest
+    strategy:
+      matrix: { dir: ["./kubernetes-iac-testbed"] }
     steps:
       - uses: actions/checkout@v2
       # https://github.com/helm/kind-action
       - name: Create k8s Kind Cluster
         uses: helm/kind-action@v1.2.0
+      - uses: actions/setup-node@v2
+        with:
+          node-version-file: .nvmrc
+        working-directory: ${{ matrix.dir }}
