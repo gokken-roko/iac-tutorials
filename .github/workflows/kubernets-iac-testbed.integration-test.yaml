@@ -27,10 +27,10 @@ jobs:
           pulumi-version: 3.23.2
       - name: Setup pulumi cli
         run: |
-          export PULUMI_CONFIG_PASSPHRASE=password
           pulumi login --local
       - name: Run yarn start
         run: |
           yarn
+          export PULUMI_CONFIG_PASSPHRASE=password
           yarn start
         working-directory: ${{ matrix.dir }}
