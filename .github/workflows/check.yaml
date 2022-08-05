@@ -1,4 +1,4 @@
-name: Lint
+name: check
 
 on:
   pull_request:
@@ -8,20 +8,19 @@ on:
   workflow_dispatch:
 
 jobs:
-  lint:
+  check:
+    name: check
     runs-on: ubuntu-latest
     strategy:
-      matrix: { dir: ["./kubernetes-iac-testbed"] }
+      fail-fast: false
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
         with:
-          node-version-file: ${{ matrix.dir }}/.nvmrc
+          node-version-file: .nvmrc
       - name: Setup yarn
         run: yarn
-        working-directory: ${{ matrix.dir }}
       - name: Run yarn format
         run: |
-          yarn format
+          yarn nx run-many --target=check --all
           git diff --exit-code
-        working-directory: ${{ matrix.dir }}
