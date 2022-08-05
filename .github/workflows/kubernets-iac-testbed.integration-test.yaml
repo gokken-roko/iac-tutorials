@@ -9,10 +9,8 @@ on:
   workflow_dispatch:
 
 jobs:
-  integration-test:
+  kubernetes-iac-testbed.integration-test:
     runs-on: ubuntu-latest
-    strategy:
-      matrix: { dir: ["./kubernetes-iac-testbed"] }
     steps:
       - uses: actions/checkout@v2
       # https://github.com/helm/kind-action
@@ -20,7 +18,9 @@ jobs:
         uses: helm/kind-action@v1.2.0
       - uses: actions/setup-node@v2
         with:
-          node-version-file: ${{ matrix.dir }}/.nvmrc
+          node-version-file: .nvmrc
+      - name: yarn
+        run: yarn
       # https://github.com/pulumi/setup-pulumi
       - name: Install pulumi CLI
         uses: pulumi/setup-pulumi@v2
@@ -29,9 +29,7 @@ jobs:
       - name: Setup pulumi cli
         run: |
           pulumi login --local
-      - name: Run yarn start
+      - name: start
         run: |
-          yarn
           export PULUMI_CONFIG_PASSPHRASE=password
-          yarn start
-        working-directory: ${{ matrix.dir }}
+          npx nx run kubernetes-iac-testbed:start

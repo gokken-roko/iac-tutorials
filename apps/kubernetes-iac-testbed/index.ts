@@ -98,4 +98,7 @@ const run = async () => {
   //console.log(`website url: ${upRes.outputs.websiteUrl.value}`);
 };
 
-run().catch((err) => console.log(err));
+run().catch((err) => {
+  console.log(err)
+  process.exit(1)
+});
