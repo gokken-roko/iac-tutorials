@@ -1,0 +1,12 @@
+{
+  "name": "kubernetes-iac-testbed",
+  "version": "0.0.1",
+  "main": "./src/main.ts",
+  "license": "MIT",
+  "scripts": {
+    "build": "tsc",
+    "start": "tsc && node ./bin/index.js",
+    "format": "prettier --write .",
+    "check": "format --check"
+  }
+}

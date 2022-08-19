@@ -2,6 +2,73 @@
   "$schema": "./node_modules/nx/schemas/workspace-schema.json",
   "version": 2,
   "projects": {
+    "crossplane": {
+      "root": "apps/crossplane",
+      "sourceRoot": "apps/crossplane/src",
+      "projectType": "application",
+      "targets": {
+        "build": {
+          "executor": "@nrwl/node:webpack",
+          "outputs": [
+            "{options.outputPath}"
+          ],
+          "options": {
+            "outputPath": "dist/apps/crossplane",
+            "main": "apps/crossplane/src/main.ts",
+            "tsConfig": "apps/crossplane/tsconfig.app.json",
+            "assets": [
+              "apps/crossplane/src/assets"
+            ]
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "extractLicenses": true,
+              "inspect": false,
+              "fileReplacements": [
+                {
+                  "replace": "apps/crossplane/src/environments/environment.ts",
+                  "with": "apps/crossplane/src/environments/environment.prod.ts"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "executor": "@nrwl/node:node",
+          "options": {
+            "buildTarget": "crossplane:build"
+          },
+          "configurations": {
+            "production": {
+              "buildTarget": "crossplane:build:production"
+            }
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "outputs": [
+            "{options.outputFile}"
+          ],
+          "options": {
+            "lintFilePatterns": [
+              "apps/crossplane/**/*.ts"
+            ]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/apps/crossplane"
+          ],
+          "options": {
+            "jestConfig": "apps/crossplane/jest.config.ts",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "tags": []
+    },
     "kubernetes-iac-testbed": {
       "root": "apps/kubernetes-iac-testbed",
       "type": "application"
