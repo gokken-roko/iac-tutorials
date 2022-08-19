@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "build": "tsc",
-    "start": "tsc && node ./bin/index.js",
+    "start": "tsc && node ../../dist/apps/crossplane/main.js",
     "format": "prettier --write .",
     "check": "format --check"
   }
