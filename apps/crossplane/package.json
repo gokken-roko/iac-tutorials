@@ -1,5 +1,5 @@
 {
-  "name": "kubernetes-iac-testbed",
+  "name": "crossplane",
   "version": "0.0.1",
   "main": "./src/main.ts",
   "license": "MIT",

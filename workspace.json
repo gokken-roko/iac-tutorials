@@ -9,16 +9,12 @@
       "targets": {
         "build": {
           "executor": "@nrwl/node:webpack",
-          "outputs": [
-            "{options.outputPath}"
-          ],
+          "outputs": ["{options.outputPath}"],
           "options": {
             "outputPath": "dist/apps/crossplane",
             "main": "apps/crossplane/src/main.ts",
             "tsConfig": "apps/crossplane/tsconfig.app.json",
-            "assets": [
-              "apps/crossplane/src/assets"
-            ]
+            "assets": ["apps/crossplane/src/assets"]
           },
           "configurations": {
             "production": {
@@ -34,6 +30,15 @@
             }
           }
         },
+        "dev": {
+          "executor": "@nrwl/workspace:run-commands",
+          "options": {
+            "commands": [
+              "yarn nx build crossplane",
+              "yarn nx start crossplane"
+            ]
+          }
+        },
         "serve": {
           "executor": "@nrwl/node:node",
           "options": {
@@ -47,20 +52,14 @@
         },
         "lint": {
           "executor": "@nrwl/linter:eslint",
-          "outputs": [
-            "{options.outputFile}"
-          ],
+          "outputs": ["{options.outputFile}"],
           "options": {
-            "lintFilePatterns": [
-              "apps/crossplane/**/*.ts"
-            ]
+            "lintFilePatterns": ["apps/crossplane/**/*.ts"]
           }
         },
         "test": {
           "executor": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/apps/crossplane"
-          ],
+          "outputs": ["coverage/apps/crossplane"],
           "options": {
             "jestConfig": "apps/crossplane/jest.config.ts",
             "passWithNoTests": true
