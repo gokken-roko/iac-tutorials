@@ -33,6 +33,7 @@
         "dev": {
           "executor": "@nrwl/workspace:run-commands",
           "options": {
+            "parallel": false,
             "commands": ["yarn nx build crossplane", "yarn nx start crossplane"]
           }
         },
