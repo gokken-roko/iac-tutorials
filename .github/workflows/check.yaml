@@ -22,7 +22,7 @@ jobs:
         run: yarn
       - name: Run yarn format
         run: |
-          yarn nx run-many --target=check --all --verbose
+          yarn nx run-many --target=check --all
           git diff --exit-code
   lint:
     name: lint
