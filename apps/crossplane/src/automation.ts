@@ -17,6 +17,9 @@ export const Deploy = async (): Promise<OutputMap> => {
   console.log("Initializing stack...");
   const stack = await LocalWorkspace.createOrSelectStack(args);
 
+  console.info("refreshing stack...");
+  await stack.refresh({ onOutput: console.info });
+
   console.log("Run update...");
   const up = await stack.up({ onOutput: console.log });
 
