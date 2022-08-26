@@ -15,10 +15,9 @@
    yarn nx dev crossplane
    ```
 
-## Create Providers
+## Providers
 
 ```bash
-kubectl apply -f apps/crossplane/manifests/provider
-# confirm all packages become healthy
+# confirm all provider packages become healthy
 watch kubectl get pkg
 ```

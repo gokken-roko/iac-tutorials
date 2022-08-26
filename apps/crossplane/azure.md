@@ -4,7 +4,6 @@
 
 https://crossplane.io/docs/v1.9/cloud-providers/azure/azure-provider.html#preparing-your-microsoft-azure-account
 
-
 ### Create Azure app
 
 1. アプリの登録をします
@@ -25,7 +24,7 @@ https://crossplane.io/docs/v1.9/cloud-providers/azure/azure-provider.html#prepar
 1. Azure Client ID を設定します
    ```bash
    # e.g. $ cat crossplane-azure-provider-key.json | grep clientId
-   export AZURE_CLIENT_ID=<clientId value from json file> 
+   export AZURE_CLIENT_ID=<clientId value from json file>
    ```
 1. App に適切な Permission を設定します
    [Azure のドキュメント](https://docs.microsoft.com/en-us/azure/active-directory/develop/quickstart-configure-app-access-web-apis)を参照して GUI 上で設定する。
