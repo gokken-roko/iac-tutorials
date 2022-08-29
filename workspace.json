@@ -14,7 +14,10 @@
             "outputPath": "dist/apps/crossplane",
             "main": "apps/crossplane/src/main.ts",
             "tsConfig": "apps/crossplane/tsconfig.app.json",
-            "assets": ["apps/crossplane/src/assets"]
+            "assets": [
+              "apps/crossplane/src/assets",
+              "apps/crossplane/src/manifests/crossplane-provider"
+            ]
           },
           "configurations": {
             "production": {

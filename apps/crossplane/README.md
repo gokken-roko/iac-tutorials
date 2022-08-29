@@ -2,6 +2,7 @@
 
 - local kubernetes cluster
 - `yarn`
+- [crossplane cli](https://crossplane.io/docs/v1.9/getting-started/install-configure.html#install-crossplane-cli)
 
 ## Run
 
@@ -13,3 +14,10 @@
    ```shell
    yarn nx dev crossplane
    ```
+
+## Providers
+
+```bash
+# confirm all provider packages become healthy
+watch kubectl get pkg
+```

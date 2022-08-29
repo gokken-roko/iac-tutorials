@@ -1,5 +1,6 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as k8s from "@pulumi/kubernetes";
+import * as path from "path";
 
 export class Crossplane extends pulumi.ComponentResource {
   public helmUrn: pulumi.Output<string>;
@@ -25,6 +26,17 @@ export class Crossplane extends pulumi.ComponentResource {
         },
       },
       {
+        ...options,
+      }
+    );
+
+    new k8s.yaml.ConfigGroup(
+      "provider",
+      {
+        files: path.join(__dirname, "manifests/crossplane-provider/*.yaml"),
+      },
+      {
+        dependsOn: crossplaneChart,
         ...options,
       }
     );
