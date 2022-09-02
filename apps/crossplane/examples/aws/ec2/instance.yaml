@@ -1,0 +1,24 @@
+---
+apiVersion: ec2.aws.crossplane.io/v1alpha1
+kind: Instance
+metadata:
+  name: gokken-crossplane-test-instance
+spec:
+  forProvider:
+    region: us-west-2
+    imageId: ami-0c2ab3b8efb09f272
+    instanceType: "t2.micro"
+    blockDeviceMappings:
+     - deviceName: /dev/sdx
+       ebs:
+         volumeSize: 64
+    securityGroupRefs:
+      - name: gokken-crossplane-test-securitygroup
+    subnetIdRef:
+      name: gokken-crossplane-test-subnet
+    keyName: gokken-pubkey
+    tags:
+      - key: Name
+        value: gokken-crossplane-test-instance
+  providerConfigRef:
+    name: default-aws
