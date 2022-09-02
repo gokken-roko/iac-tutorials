@@ -30,3 +30,12 @@ https://crossplane.io/docs/v1.9/getting-started/install-configure.html#install-c
    ```
 
 ## ec2
+
+1. create resources
+   ```bash
+   kubectl apply -f apps/crossplane/examples/aws/ec2/
+   ```
+1. cleanup
+   ```bash
+   kubectl delete -f apps/crossplane/examples/aws/ec2/
+   ```
