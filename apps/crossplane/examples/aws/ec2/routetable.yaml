@@ -1,0 +1,22 @@
+---
+apiVersion: ec2.aws.crossplane.io/v1beta1
+kind: RouteTable
+metadata:
+  name: gokken-crossplane-test-routetable
+spec:
+  forProvider:
+    region: us-west-2
+    routes:
+      - destinationCidrBlock: 0.0.0.0/0
+        gatewayIdRef:
+          name: gokken-crossplane-test-internetgateway
+    associations:
+      - subnetIdRef:
+          name: gokken-crossplane-test-subnet
+    vpcIdRef:
+      name: gokken-crossplane-test-vpc
+    tags:
+      - key: Name
+        value: gokken-crossplane-test-routetable
+  providerConfigRef:
+    name: default-aws
