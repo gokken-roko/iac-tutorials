@@ -39,3 +39,7 @@ https://crossplane.io/docs/v1.9/getting-started/install-configure.html#install-c
    ```bash
    kubectl delete -f apps/crossplane/examples/aws/ec2/
    ```
+1. ssh
+   ```bash
+   ssh -i ${YOUR_PRIVATE_KEY} ec2-user@$(kubectl get instances.ec2.aws.crossplane.io gokken-crossplane-test-instance -o=json | jq -r ".status.atProvider.publicIpAddress")
+   ```
