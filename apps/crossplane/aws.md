@@ -29,13 +29,13 @@ https://crossplane.io/docs/v1.9/getting-started/install-configure.html#install-c
    kubectl get providerconfigs.aws.crossplane.io
    ```
 
-## ec2
+## Example | create ec2 instance
 
 1. create resources
    ```bash
    kubectl apply -f apps/crossplane/examples/aws/ec2/
    ```
-1. ssh
+1. ssh to ec2 instance
    ```bash
    ssh -i ${YOUR_PRIVATE_KEY} ec2-user@$(kubectl get instances.ec2.aws.crossplane.io gokken-crossplane-test-instance -o=json | jq -r ".status.atProvider.publicIpAddress")
    ```

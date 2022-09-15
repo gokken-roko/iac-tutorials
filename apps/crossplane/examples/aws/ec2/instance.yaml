@@ -9,9 +9,9 @@ spec:
     imageId: ami-0c2ab3b8efb09f272
     instanceType: "t2.micro"
     blockDeviceMappings:
-     - deviceName: /dev/sdx
-       ebs:
-         volumeSize: 64
+      - deviceName: /dev/sdx
+        ebs:
+          volumeSize: 64
     securityGroupRefs:
       - name: gokken-crossplane-test-securitygroup
     subnetIdRef:
