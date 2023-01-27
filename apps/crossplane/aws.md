@@ -15,17 +15,46 @@
    cat ~/.aws/config
    ```
 
+## Setup crossplane with yarn
+
+[README.md](./README.md)
+
 ## Setup AWS ProviderConfig
 
 https://crossplane.io/docs/v1.9/getting-started/install-configure.html#install-configuration-package-1
 
+1. Get AWS Account Keyfile
+   https://crossplane.io/docs/v1.9/getting-started/install-configure.html#install-configuration-package-1
+   ```bash
+   cat creds.conf
+   ```
 1. setup aws provider
    https://crossplane.io/docs/v1.9/getting-started/install-configure.html#install-configuration-package-1
-1. confirm
+   ```bass
+   kubectl create secret generic aws-creds -n crossplane-system --from-file=creds=./creds.conf
+   ```
+1. Confirm secrets
    ```bash
-   # provider secret
    kubectl get secrets -n=crossplane-system
-   # aws provider config
+   ```
+1. Configure the provider
+   ```bash
+   cat <<EOF | kubectl apply -f -
+   apiVersion: aws.crossplane.io/v1beta1
+   kind: ProviderConfig
+   metadata:
+     name: default-aws
+   spec:
+     credentials:
+       source: Secret
+       secretRef:
+         namespace: crossplane-system
+         name: aws-creds
+         key: creds
+   EOF
+   ```
+1. Confirm `default-aws` provider
+   ```bash
    kubectl get providerconfigs.aws.crossplane.io
    ```
 
