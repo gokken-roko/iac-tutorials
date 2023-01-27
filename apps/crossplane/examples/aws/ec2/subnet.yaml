@@ -1,0 +1,18 @@
+---
+apiVersion: ec2.aws.crossplane.io/v1beta1
+kind: Subnet
+metadata:
+  name: gokken-crossplane-test-subnet
+spec:
+  forProvider:
+    region: us-west-2
+    availabilityZone: us-west-2b
+    cidrBlock: 10.0.1.0/24
+    vpcIdRef:
+      name: gokken-crossplane-test-vpc
+    mapPublicIPOnLaunch: true
+    tags:
+      - key: Name
+        value: gokken-crossplane-test-subnet
+  providerConfigRef:
+    name: default-aws

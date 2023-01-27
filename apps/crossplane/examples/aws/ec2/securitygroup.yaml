@@ -1,0 +1,23 @@
+---
+apiVersion: ec2.aws.crossplane.io/v1beta1
+kind: SecurityGroup
+metadata:
+  name: gokken-crossplane-test-securitygroup
+spec:
+  forProvider:
+    region: us-west-2
+    vpcIdRef:
+      name: gokken-crossplane-test-vpc
+    groupName: gokken-crossplane-test-securitygroup
+    description: ssh
+    ingress:
+      - fromPort: 22
+        toPort: 22
+        ipProtocol: tcp
+        ipRanges:
+          - cidrIp: 0.0.0.0/0
+    tags:
+      - key: Name
+        value: gokken-crossplane-test-securitygroup
+  providerConfigRef:
+    name: default-aws

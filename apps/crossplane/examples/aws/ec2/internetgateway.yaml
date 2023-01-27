@@ -1,0 +1,15 @@
+---
+apiVersion: ec2.aws.crossplane.io/v1beta1
+kind: InternetGateway
+metadata:
+  name: gokken-crossplane-test-internetgateway
+spec:
+  forProvider:
+    region: us-west-2
+    vpcIdRef:
+      name: gokken-crossplane-test-vpc
+    tags:
+      - key: Name
+        value: gokken-crossplane-test-internetgateway
+  providerConfigRef:
+    name: default-aws

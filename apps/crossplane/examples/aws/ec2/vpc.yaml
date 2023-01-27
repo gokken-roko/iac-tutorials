@@ -1,0 +1,17 @@
+---
+apiVersion: ec2.aws.crossplane.io/v1beta1
+kind: VPC
+metadata:
+  name: gokken-crossplane-test-vpc
+spec:
+  forProvider:
+    region: us-west-2
+    cidrBlock: 10.0.0.0/16
+    enableDnsSupport: true
+    enableDnsHostNames: true
+    instanceTenancy: default
+    tags:
+      - key: Name
+        value: gokken-crossplane-test-vpc
+  providerConfigRef:
+    name: default-aws
