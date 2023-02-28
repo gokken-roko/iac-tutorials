@@ -1,0 +1,11 @@
+apiVersion: s3.aws.crossplane.io/v1beta1
+kind: Bucket
+metadata:
+  name: crossplane-s3-test
+spec:
+  forProvider:
+    # https://docs.aws.amazon.com/ja_jp/AmazonS3/latest/userguide/acl-overview.html#canned-acl
+    acl: public-read
+    locationConstraint: us-west-2
+  providerConfigRef:
+    name: default-aws
