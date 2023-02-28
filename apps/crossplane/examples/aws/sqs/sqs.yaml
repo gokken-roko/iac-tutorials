@@ -1,0 +1,9 @@
+apiVersion: sqs.aws.crossplane.io/v1beta1
+kind: Queue
+metadata:
+  name: crossplane-sqs-test
+spec:
+  forProvider:
+    region: us-west-2
+  providerConfigRef:
+    name: default-aws
