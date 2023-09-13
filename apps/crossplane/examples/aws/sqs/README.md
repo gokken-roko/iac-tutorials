@@ -4,4 +4,3 @@
 
 1. apply
    `kubectl apply -f examples/aws/sqs`
-1. 
